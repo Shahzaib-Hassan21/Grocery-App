@@ -2,7 +2,7 @@ import {View, Text, StyleSheet, FlatList} from 'react-native';
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import CartItem from '../common/CartItem';
-import {removeFromCart, removeFromWishList} from '../redux/actions/Actions';
+import {addItemToCart, removeFromCart, removeFromWishList} from '../redux/actions/Actions';
 
 const Wishlist = () => {
   const [cartList, setCartList] = useState([]);
@@ -15,9 +15,13 @@ const Wishlist = () => {
         renderItem={({item, index}) => {
           return (
             <CartItem
+              isWishList={'swe'}
               item={item}
-              onRemoveItem={() => {
+              onRemoveFromWishlist={() => {
                 dispatch(removeFromWishList(index));
+              }}
+              onAddToCart={x => {
+                dispatch(addItemToCart(x));
               }}
             />
           );

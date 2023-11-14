@@ -1,7 +1,14 @@
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 
-const CartItem = ({item, onRemoveItem, onAddWishList, isWishList}) => {
+const CartItem = ({
+  item,
+  onRemoveItem,
+  onAddWishList,
+  onRemoveFromWishlist,
+  isWishList,
+  onAddToCart,
+}) => {
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
@@ -9,7 +16,15 @@ const CartItem = ({item, onRemoveItem, onAddWishList, isWishList}) => {
         <Text style={styles.itemText}>{item.name}</Text>
         <View style={styles.priceView}>
           <Text style={styles.priceText}>{'Rs.' + item.price}</Text>
-          {isWishList ? null : (
+          {isWishList ? (
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                onAddToCart(item);
+              }}>
+              <Text style={styles.cartText}>Add to Cart</Text>
+            </TouchableOpacity>
+          ) : (
             <TouchableOpacity
               style={styles.button}
               onPress={() => {
@@ -19,16 +34,29 @@ const CartItem = ({item, onRemoveItem, onAddWishList, isWishList}) => {
             </TouchableOpacity>
           )}
         </View>
-        <TouchableOpacity
-          style={styles.likeShape}
-          onPress={() => {
-            onAddWishList(item);
-          }}>
-          <Image
-            style={styles.heartImg}
-            source={require('../images/heart.png')}
-          />
-        </TouchableOpacity>
+        {isWishList ? (
+          <TouchableOpacity
+            style={styles.likeShape}
+            onPress={() => {
+              onRemoveFromWishlist();
+            }}>
+            <Image
+              style={styles.heartFillImg}
+              source={require('../images/heart_fill.png')}
+            />
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            style={styles.likeShape}
+            onPress={() => {
+              onAddWishList(item);
+            }}>
+            <Image
+              style={styles.heartImg}
+              source={require('../images/heart.png')}
+            />
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );
@@ -96,6 +124,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   heartImg: {
+    width: 24,
+    height: 24,
+  },
+  heartFillImg: {
+    tintColor: 'red',
     width: 24,
     height: 24,
   },
