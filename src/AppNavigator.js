@@ -6,6 +6,8 @@ import Splash from './screens/Splash';
 import Login from './screens/Login';
 import Signup from './screens/Signup';
 import Home from './screens/Home';
+import MyAddress from './screens/MyAddress';
+import AddAddress from './screens/AddAddress';
 
 const Stack = createNativeStackNavigator();
 const AppNavigator = () => {
@@ -27,10 +29,20 @@ const AppNavigator = () => {
           name="Signup"
           component={Signup}
         />
-         <Stack.Screen
+        <Stack.Screen
           options={{headerShown: false}}
           name="Home"
           component={Home}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="MyAddress"
+          component={MyAddress}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="AddAddress"
+          component={AddAddress}
         />
       </Stack.Navigator>
     </NavigationContainer>
